@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: frontend-capstone-project
+    env: static
+    buildCommand: cd ui; yarn install --production=false; yarn build
+    staticPublishPath: ui/build/
+    buildFilter:
+      paths:
+        - ui/**/*.js
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+  - type: web
+    name: backend-capstone-project
+    plan: free
+    env: node
+    buildCommand: cd api; yarn
+    startCommand: cd api; yarn start
+    buildFilter:
+      paths:
+        - api/**/*.js
+databases:
+  - name: database-capstone-project
+    plan: free
+    databaseName: forum_db
+    ipAllowList: [] # only allow internal connections
