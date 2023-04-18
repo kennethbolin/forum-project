@@ -7,11 +7,15 @@ import { useParams } from "react-router-dom";
 
 
 
-function PostComment() {
+function PostComment(props) {
 
   const { thread_id } = useParams()
   //Set sates
   const [postContent, setPostContent] = useState("")
+  
+  const {
+    onCommentCreated
+  } = props
 
   //helper functions
   //need to handle the submit button to send the subject and title data to the backend
@@ -20,7 +24,8 @@ function PostComment() {
     const data = { content: postContent }
     console.log(data)
     try{    
-      await createComment(thread_id, data)
+      const comments = await createComment(thread_id, data)
+      onCommentCreated(comments)
       setPostContent('')
     } catch (error) {
         console.error('Error creating comment:', error)

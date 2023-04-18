@@ -35,8 +35,12 @@ exports.createComment = async (thread_id, content) => {
     try {
       const createdComment = await knex("comment")
         .insert({thread_id, content})
-        .returning("*")
-      return createdComment[0]
+
+      const commentData = await knex('comment')
+        .select('comment_id', 'user_id', 'thread_id', 'content', 'created')
+        .where('thread_id', thread_id)
+
+      return commentData
     } catch (error) {
       throw new Error(`Error creating comment: ${error}`)
     }

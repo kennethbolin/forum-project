@@ -72,8 +72,8 @@ function ThreadComments() {
   }
 
   //handle for the created comment
-  const handleCommentCreated = (createdComment) => {
-    setData((prevData) => [...prevData, createdComment]);
+  const handleCommentCreated = (comments) => {
+    setData(comments)
   };
 
   // fetch the API data 
