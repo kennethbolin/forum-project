@@ -11,7 +11,8 @@ function EventPage() {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
       <div>
-        <Calendar onChange={onChange} value={value}/>
+        <Calendar 
+          onChange={onChange} value={value}/>
         <Card>Testing Day</Card>
       </div>
     </Box>

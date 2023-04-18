@@ -17,12 +17,16 @@ function Home() {
             title="logo">
           </CardMedia>
         </Card>
-        <Typography variant="h5" component="h2" gutterBottom>
-          A platform to empower AT&T employees
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          Welcome to the AT&T Union Forum! This online community is dedicated to providing a safe and inclusive space for AT&T employees to connect, share knowledge, and support one another. Our goal is to create an open and transparent platform where employees can discuss workplace challenges, celebrate achievements, and collaborate on ways to improve our working environment. Together, we can make AT&T a better place to work.
-        </Typography>
+        <Card
+        style={{ marginTop: "20px", marginBottom: '20px' }}>
+          <Typography variant="h5" component="h2" gutterBottom>
+            A platform to empower AT&T employees
+          </Typography>
+          <Typography variant="body1" gutterBottom>
+            Welcome to the AT&T Union Forum! This online community is dedicated to providing a safe and inclusive space for AT&T employees to connect, share knowledge, and support one another. Our goal is to create an open and transparent platform where employees can discuss workplace challenges, celebrate achievements, and collaborate on ways to improve our working environment. Together, we can make AT&T a better place to work.
+          </Typography>
+        </Card>
+        <Card>
         <Typography variant="h6" component="h3" gutterBottom>
           Key Features:
         </Typography>
@@ -38,6 +42,7 @@ function Home() {
           3. Download Documents: 
           <br></br> Visits the Documents page to download any important files, records, or forms that we may need you to stay up to date on.
         </Typography>
+        </Card>
       </Box>
     </Container>
   );
