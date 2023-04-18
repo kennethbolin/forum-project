@@ -44,6 +44,8 @@ function PostComment(props) {
           label="What say 'ye?"
           variant="outlined"
           fullWidth
+          multiline
+          rows={4}
           required
           value={postContent}
           onChange={(e) => setPostContent(e.target.value)}

@@ -109,7 +109,17 @@ function ThreadComments() {
       {data.map((comment) => {
         // console.log(comment)
         return (
-        <Card key={comment.comment_id} style={{ marginTop: '20px' }} sx={{ minWidth: 275 }}>
+          <Card 
+            key={comment.comment_id} 
+            style={{ marginTop: '20px' }} 
+            sx={{ 
+              width: '70%', 
+              minWidth: 275, 
+              maxWidth: 900, 
+              marginLeft: 'auto', 
+              marginRight: 'auto' 
+            }}
+          >
           <CardContent>
           {editingCommentId === comment.comment_id ? (
             <TextField
