@@ -79,10 +79,10 @@ function ThreadComments() {
   // fetch the API data 
   useEffect(() => {
     if (thread_id) {
-      console.log('Fetching comments for thread_id:', thread_id);
+      // console.log('Fetching comments for thread_id:', thread_id);
       getComments(thread_id)
         .then((data) => {
-          // console.log('Received data:', data)
+          console.log('Received data:', data)
           if (Array.isArray(data)) {
             setData(data)
           } else {
@@ -106,7 +106,9 @@ function ThreadComments() {
   return (
     <Box>
       <PostComment onCommentCreated={handleCommentCreated} />
-      {data.map((comment) => (
+      {data.map((comment) => {
+        // console.log(comment)
+        return (
         <Card key={comment.comment_id} style={{ marginTop: '20px' }} sx={{ minWidth: 275 }}>
           <CardContent>
           {editingCommentId === comment.comment_id ? (
@@ -144,7 +146,8 @@ function ThreadComments() {
           </CardActions>
         </CardContent>
       </Card>
-    ))}
+    )}
+    )}
   </Box>
 )
 }
