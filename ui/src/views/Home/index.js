@@ -1,15 +1,19 @@
 import React from "react";
 import "../../App.css";
 import { Container, Box, Typography, Card, CardMedia } from "@mui/material";
-
+import logo from "../../assests/logo.jpg"
 function Home() {
   return (
     <Container maxWidth="md">
       <Box my={4}>
         <Card>
           <CardMedia
-            sx={{height: 200}}
-            image="../../assests/trivia_image.jpg"
+            component="img"
+            sx={{
+              height: 300,
+              objectPosition: 'center',
+            }}
+            image={logo}
             title="logo">
           </CardMedia>
         </Card>
@@ -23,11 +27,16 @@ function Home() {
           Key Features:
         </Typography>
         <Typography variant="body1" gutterBottom>
-          1. Discussion Boards: Engage with fellow employees on a wide range of topics, from workplace policies and career development to union initiatives and AT&T news.
+          1. Discussion Boards: 
+          <br></br>Engage with fellow employees on a wide range of topics, from workplace policies and career development to union initiatives and AT&T news.
         </Typography>
         <Typography variant="body1" gutterBottom>
-          2. Resources:
-          / Add more content here
+          2. Event Calender:<br></br>
+          Stay up to date with recent and upcoming events that you may want to attend or be apart of.
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          3. Download Documents: 
+          <br></br> Visits the Documents page to download any important files, records, or forms that we may need you to stay up to date on.
         </Typography>
       </Box>
     </Container>
