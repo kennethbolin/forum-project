@@ -218,8 +218,9 @@ export const getComments = async(thread_id) => {
 
 
 // Update a comment
-export const updateComment = async (thread_id, updatedComment) => {
-  const response = await fetch(`${baseUrl}/thread/${thread_id}/comments`, {
+export const updateComment = async (thread_id, comment_id, updatedComment) => {
+  // console.log('updateComment Fetch params:', thread_id, comment_id, updatedComment)
+  const response = await fetch(`${baseUrl}/thread/${thread_id}/comment/${comment_id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -235,8 +236,9 @@ export const updateComment = async (thread_id, updatedComment) => {
 }
 
 // Delete a comment
-export const deleteComment = async (thread_id) => {
-  const response = await fetch(`${baseUrl}/thread/${thread_id}/comments`, {
+export const deleteComment = async (thread_id, comment_id) => {
+  // console.log(thread_id, comment_id)
+  const response = await fetch(`${baseUrl}/thread/${thread_id}/comment/${comment_id}`, {
     method: 'DELETE',
   });
 
@@ -246,7 +248,8 @@ export const deleteComment = async (thread_id) => {
 }
 
 export const createComment = async (thread_id, newComment) => {
-  const response = await fetch(`${baseUrl}/thread/${thread_id}/comments`, {
+  console.log('createComment:', thread_id, newComment)
+  const response = await fetch(`${baseUrl}/thread/${thread_id}/comment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

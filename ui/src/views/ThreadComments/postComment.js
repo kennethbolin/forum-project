@@ -3,11 +3,13 @@ import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import { Box, Typography } from "@mui/material";
 import { createComment } from "../../utility/api";
+import { useParams } from "react-router-dom";
 
 
 
 function PostComment() {
 
+  const { thread_id } = useParams()
   //Set sates
   const [postContent, setPostContent] = useState("")
 
@@ -18,7 +20,7 @@ function PostComment() {
     const data = { content: postContent }
     console.log(data)
     try{    
-      await createComment(data)
+      await createComment(thread_id, data)
       setPostContent('')
     } catch (error) {
         console.error('Error creating comment:', error)

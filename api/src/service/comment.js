@@ -24,20 +24,20 @@ exports.updateComment = async (thread_id, comment_id, updatedComment) => {
   }
 
 //delete
-exports.deleteComment = async (thread_id, comment_id) => {
+exports.destroyComment = async (thread_id, comment_id) => {
     await knex('comment')
       .where({ thread_id, comment_id })
       .delete()
   }
 
 //post
-exports.createComment = async (newComment) => {
+exports.createComment = async (thread_id, content) => {
     try {
-      const createdComment = await knex("comments")
-        .insert(newComment)
+      const createdComment = await knex("comment")
+        .insert({thread_id, content})
         .returning("*")
       return createdComment[0]
     } catch (error) {
-      throw new Error("Error creating comment")
+      throw new Error(`Error creating comment: ${error}`)
     }
   }

@@ -1,4 +1,4 @@
-const { showComments, updateComment, deleteComment, createComment} = require('../service/comment')
+const { showComments, updateComment, destroyComment, createComment} = require('../service/comment')
 
 //'get
 exports.getComments = async (req, res) => {
@@ -31,9 +31,10 @@ exports.updateComment = async (req, res, next) => {
 
 // delete
 exports.deleteComment = async (req, res) => {
+  console.log('deleteComment:', req.params)
   const { thread_id, comment_id } = req.params
   try {
-    const result = await deleteComment(thread_id, comment_id)
+    const result = await destroyComment(thread_id, comment_id)
     res.status(200).json({ message: "Comment deleted successfully", result })
   } catch (error) {
     res.status(500).json({ message: "Error deleting comment", error })
@@ -43,11 +44,17 @@ exports.deleteComment = async (req, res) => {
 
 //post
 exports.createCommentController = async (req, res) => {
+  console.log(req.params)
+  const { thread_id } = req.params
+  console.log(req.body)
+  const content = req.body.content
+
   try {
-    const newComment = req.body
-    const createdComment = await commentsService.createComment(newComment)
+    
+    const createdComment = await createComment(thread_id, content)
     res.status(201).json(createdComment)
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: "Error creating comment", error: error })
   }
 }

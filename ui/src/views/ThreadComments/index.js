@@ -45,7 +45,7 @@ function ThreadComments() {
     };
 
     try {
-      const response = await updateComment(comment_id, updatedComment)
+      const response = await updateComment(thread_id, comment_id, updatedComment)
       console.log('Comment updated:', response)
 
       // Update the local data
@@ -64,7 +64,7 @@ function ThreadComments() {
   //handler for the delete button
   const handleDelete = async (comment_id) => {
     try {
-      await deleteComment(comment_id);
+      await deleteComment(thread_id, comment_id);
       setData(data.filter((comment) => comment.comment_id !== comment_id))
     } catch (error) {
       console.error('Error deleting comment:', error)
