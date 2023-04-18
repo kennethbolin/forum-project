@@ -26,49 +26,35 @@ function ThreadComments() {
   //define state
   const [data, setData] = useState([])
   const [editingCommentId, setEditingCommentId] = useState(null)
-  const [editedContent, setEditedContent] = useState({})
+  const [editedContent, setEditedContent] = useState("")
   // console.log('data:', data)
-
-  // fetch the API data 
-  useEffect(() => {
-    if (thread_id) {
-      console.log('Fetching comments for thread_id:', thread_id);
-      getComments(thread_id)
-        .then((data) => {
-         // console.log('Received data:', data) 
-          setData(data)
-        })
-        .catch((error) => console.log(error))
-    }
-  }, [thread_id])
 
   //helper functions
   // const filteredComments = comments.filter(comment => comment.thread_id === thread_id);
 
   //handler for the edit button
-  const handleEdit = (comment_id) => {
-    setEditingCommentId(comment_id);
-    setEditedContent((prevState) => ({
-      ...prevState,
-      [comment_id]: "",
-    }))
+  const handleEdit = (comment_id, content) => {
+    setEditingCommentId(comment_id)
+    setEditedContent(content)
   }
 
   //handler for the save button
   const handleSave = async (comment_id) => {
     const updatedComment = {
-      content: editedContent[comment_id],
+      content: editedContent,
     };
 
     try {
-      const response = await updateComment(thread_id, comment_id, updatedComment)
+      const response = await updateComment(comment_id, updatedComment)
       console.log('Comment updated:', response)
 
+      // Update the local data
       const newData = data.map((comment) =>
         comment.comment_id === comment_id ? { ...comment, ...updatedComment } : comment
       )
       setData(newData)
 
+      // Hide the edit form
       setEditingCommentId(null)
     } catch (error) {
       console.error('Error updating comment:', error)
@@ -90,6 +76,25 @@ function ThreadComments() {
     setData((prevData) => [...prevData, createdComment]);
   };
 
+  // fetch the API data 
+  useEffect(() => {
+    if (thread_id) {
+      console.log('Fetching comments for thread_id:', thread_id);
+      getComments(thread_id)
+        .then((data) => {
+          // console.log('Received data:', data)
+          if (Array.isArray(data)) {
+            setData(data)
+          } else {
+            console.error('Error: Data received is not an array')
+          }
+        })
+        .catch((error) => console.log(error))
+    }
+  }, [thread_id])
+  
+
+
   //conditional rendering guard clauses
   //when cant read map even with returning an array need to return a div to give time to render
   if (!data){
@@ -104,21 +109,21 @@ function ThreadComments() {
       {data.map((comment) => (
         <Card key={comment.comment_id} style={{ marginTop: '20px' }} sx={{ minWidth: 275 }}>
           <CardContent>
-            {editingCommentId === comment.comment_id ? (
-              <TextField
-                label="Comment Content"
-                variant="outlined"
-                fullWidth
-                multiline
-                rows={5}
-                value={editedContent[comment.comment_id] || comment.content}
-                onChange={(e) => setEditedContent({ ...editedContent, [comment.comment_id]: e.target.value })}
-              />
-            ) : (
-              <Typography variant="body2">
-                {comment.content}
-              </Typography>
-            )}
+          {editingCommentId === comment.comment_id ? (
+            <TextField
+              label="Comment Content"
+              variant="outlined"
+              fullWidth
+              multiline
+              rows={5}
+              defaultValue={comment.content}
+              onChange={(e) => setEditedContent(e.target.value)}
+            />
+          ) : (
+            <Typography variant="body2">
+              {comment.content}
+            </Typography>
+          )}
             <CardActions>
               {editingCommentId === comment.comment_id ? (
                 <>
@@ -130,7 +135,7 @@ function ThreadComments() {
                   </Button>
                 </>
               ) : (
-                <Button color="primary" onClick={() => handleEdit(comment.comment_id)}>
+                <Button color="primary" onClick={() => handleEdit(comment.comment_id, comment.content)}>
                   Edit
                 </Button>
               )} <Button color="secondary" onClick={() => handleDelete(comment.comment_id)}>
