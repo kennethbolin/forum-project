@@ -6,7 +6,11 @@ import { createThread } from "../../utility/api";
 
 
 
-function PostForm() {
+function PostForm(props) {
+
+  const {
+    onThreadCreated
+  } = props
 
   //Set sates
   const [postTitle, setPostTitle] = useState("")
@@ -20,7 +24,8 @@ function PostForm() {
     const data = { title: postTitle, subject: postSubject }
     console.log(data);
     try {
-      await createThread(data)
+      const threads = await createThread(data)
+      onThreadCreated(threads)
       setPostTitle('')
       setPostSubject('')
     } catch (error) {

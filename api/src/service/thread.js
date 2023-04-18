@@ -16,6 +16,9 @@ exports.addThread = async ({ title, subject }) => {
       .insert({ title, subject })
       .returning(['thread_id', 'title', 'subject']);
     
-    return newThread;
+      const threads = await knex('thread')
+      .select('thread_id', 'title', 'subject', 'created')
+
+    return threads
   };
   

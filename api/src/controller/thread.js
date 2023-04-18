@@ -19,8 +19,8 @@ exports.getThread = async (req, res) => {
 
 exports.createThread = async (req, res) => {
   try {
-    const newThread = await addThread(req.body);
-    res.status(201).json(newThread);
+    const threads = await addThread(req.body);
+    res.status(201).json(threads);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");

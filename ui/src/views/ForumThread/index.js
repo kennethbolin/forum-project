@@ -60,6 +60,10 @@ function ThreadCard() {
       console.error("Error updating thread:", error)
     }
   };
+    //handle for the created thread
+  const handleThreadCreated = (threads) => {
+    setData(threads)
+  };
 
   //close the editing box after clicking save
   
@@ -93,7 +97,7 @@ function ThreadCard() {
   //edit button
   return (
     <Box sx={{ paddingTop: "20px" }}>
-      <PostForm />
+      <PostForm onThreadCreated={handleThreadCreated}/>
       {data.map((thread) => (
         <Card 
           key={thread.thread_id} 
